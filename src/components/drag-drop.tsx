@@ -55,7 +55,7 @@ const DragDrop = ({ children, className, onFileChange, ...props }: Props) => {
   return (
     <div
       className={cn(
-        "flex w-full flex-col items-center justify-center gap-2 border border-dashed p-8 rounded-lg",
+        "flex w-full flex-col items-center justify-center gap-3 border border-dashed p-8 rounded-lg",
         isDragging && "bg-muted/20",
         className,
       )}
@@ -75,7 +75,7 @@ const DragDrop = ({ children, className, onFileChange, ...props }: Props) => {
         <>
           <UploadIcon />
           <p className="font-medium">Drag & Drop File </p>
-          <p className="text-sm">or</p>
+          <p>or</p>
           <Button onClick={handleClick}>Browse</Button>
         </>
       )}

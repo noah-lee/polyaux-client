@@ -102,7 +102,7 @@ const PlatformPlayer = ({
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
-              {PLATFORMS.map(({ name }) => (
+              {PLATFORMS.map(({ name, target }) => (
                 <SelectItem key={name} value={name}>
                   {name}
                 </SelectItem>

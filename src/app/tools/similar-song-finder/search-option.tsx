@@ -3,17 +3,16 @@ import { Track } from "@/api/spotify/types/tracks/track.type";
 
 type Props = {
   track: Track;
-  path: string;
-  onClick?: (event: MouseEvent) => void;
+  onClick?: () => void;
 };
 
-const SearchOption = ({ track, path, onClick }: Props) => {
+const SearchOption = ({ track, onClick }: Props) => {
   const { id, album, artists, name } = track;
 
   const artistName = artists.map((artist) => artist.name).join(", ");
 
   return (
-    <Link to={`${path}/${id}`}>
+    <Link to={id} onClick={onClick}>
       <div
         className="flex items-center gap-2 rounded-md p-2 transition-colors
         hover:bg-accent hover:text-accent-foreground

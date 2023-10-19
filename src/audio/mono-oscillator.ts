@@ -31,7 +31,7 @@ class MonoOscillator {
     });
     this._oscillator.start();
 
-    this._attenuator = new GainNode(audioContext, { gain: 0.2 });
+    this._attenuator = new GainNode(audioContext, { gain: 0.25 });
 
     this._envelope = new GainNode(audioContext, { gain: 0 });
 

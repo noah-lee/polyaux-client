@@ -76,6 +76,7 @@ export default function AudioPlayer({
   return (
     <div className="flex w-full items-center gap-4">
       <Button
+        size="sm"
         onClick={handlePlayToggle}
         disabled={!audioBuffer || disabled}
         className="mr-2"

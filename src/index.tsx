@@ -13,18 +13,19 @@ import Metronome from "@/app/tools/metronome/index.tsx";
 import Tuner from "@/app/tools/tuner/index.tsx";
 import BpmTapper from "@/app/tools/bpm-tapper/index.tsx";
 import LoudnessMeter from "@/app/tools/loudness-meter/index.tsx";
-import SimilarSongsFinder from "@/app/tools/similar-songs-finder/index.tsx";
+import SimilarSongFinder from "@/app/tools/similar-song-finder/index.tsx";
 import { TooltipProvider } from "@/components/ui/tooltip.tsx";
-import Recommendations from "@/app/tools/similar-songs-finder/recommendations.tsx";
+import Results from "@/app/tools/similar-song-finder/results.tsx";
+import { defaultOptions } from "@/api/react-query.ts";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient(defaultOptions);
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: (
       <QueryClientProvider client={queryClient}>
-        <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+        <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
           <TooltipProvider delayDuration={200}>
             <App />
           </TooltipProvider>
@@ -51,7 +52,7 @@ const router = createBrowserRouter([
           {
             path: "metronome",
             element: <Metronome />,
-          },
+          }, 
           {
             path: "tuner",
             element: <Tuner />,
@@ -65,12 +66,12 @@ const router = createBrowserRouter([
             element: <LoudnessMeter />,
           },
           {
-            path: "similar-songs-finder",
-            element: <SimilarSongsFinder />,
+            path: "similar-song-finder",
+            element: <SimilarSongFinder />,
             children: [
               {
-                path: ":id",
-                element: <Recommendations />,
+                path: ":trackId",
+                element: <Results />,
               },
             ],
           },

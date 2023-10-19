@@ -1,7 +1,7 @@
 import { useState, ChangeEvent, useRef } from "react";
-import { useSearchQuery } from "@/api/spotify/search";
-import SearchOption from "@/app/tools/similar-songs-finder/search-option";
-import SearchOptionSkeleton from "@/app/tools/similar-songs-finder/search-option-skeleton";
+import { useSearchQuery } from "@/api/spotify"; 
+import SearchOption from "@/app/tools/similar-song-finder/search-option";
+import SearchOptionSkeleton from "@/app/tools/similar-song-finder/search-option-skeleton";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import useClickOutside from "@/hooks/use-click-outside";
@@ -9,11 +9,7 @@ import useDebounce from "@/hooks/use-debounce";
 
 const LIMIT = 5;
 
-type Props = {
-  path: string;
-};
-
-const SearchBar = ({ path }: Props) => {
+const SearchBar = () => {
   const inputRef = useRef(null);
   const [input, setInput] = useState("");
   const [searchInput, setSearchQuery] = useState("");
@@ -62,11 +58,7 @@ const SearchBar = ({ path }: Props) => {
                   ))
               : results?.tracks.items.map((track) => (
                   <li key={track.id}>
-                    <SearchOption
-                      track={track}
-                      path={path}
-                      onClick={handleClearInput}
-                    />
+                    <SearchOption track={track} onClick={handleClearInput} />
                   </li>
                 ))}
           </ul>

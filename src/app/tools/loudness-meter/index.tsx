@@ -47,6 +47,7 @@ const LoudnessMeter = () => {
 
     setFileName(files[0].name);
     setIsProcessing(true);
+    setProgress(0);
     loudnessMeter.load(audioBuffer);
     loudnessMeter.start();
 
@@ -57,17 +58,19 @@ const LoudnessMeter = () => {
     <div className="container flex flex-col ">
       <div className="flex flex-col items-center gap-8 py-[64px]">
         <h2 className="text-2xl font-semibold">Loudness Meter</h2>
-        <div className="grid w-full gap-8">
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-            <DragDrop onFileChange={handleFileChange} accept="audio/*" />
+        <div className="grid w-full max-w-[640px] gap-8">
+          {fileName ? (
             <LoudnessDisplay
               integrated={loudness.integrated}
               short={loudness.short}
               momentary={loudness.momentary}
               progress={progress}
+              onFileChange={handleFileChange}
               loading={isProcessing}
             />
-          </div>
+          ) : (
+            <DragDrop onFileChange={handleFileChange} accept="audio/*" />
+          )}
           <PlatformPlayer
             audioContext={audioContext}
             fileName={fileName}
