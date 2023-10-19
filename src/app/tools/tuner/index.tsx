@@ -119,7 +119,7 @@ const Tuner = () => {
             />
           )}
           <p className={cn("pb-4 text-5xl font-bold", color)}>
-            {mostFrequentNote || "-"}
+            {mostFrequentNote || "."}
           </p>
         </Card>
       </div>

@@ -57,7 +57,7 @@ const TrackItem = ({
     }
 
     handlePause();
-  }, [playingTrackId, handlePause]);
+  }, [playingTrackId]);
 
   return (
     <div

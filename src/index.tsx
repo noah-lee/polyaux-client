@@ -15,7 +15,7 @@ import BpmTapper from "@/app/tools/bpm-tapper/index.tsx";
 import LoudnessMeter from "@/app/tools/loudness-meter/index.tsx";
 import SimilarSongFinder from "@/app/tools/similar-song-finder/index.tsx";
 import { TooltipProvider } from "@/components/ui/tooltip.tsx";
-import Results from "@/app/tools/similar-song-finder/results.tsx";
+import SimilarSongResults from "@/app/tools/similar-song-finder/similar-song-results.tsx";
 import { defaultOptions } from "@/api/react-query.ts";
 
 const queryClient = new QueryClient(defaultOptions);
@@ -71,7 +71,7 @@ const router = createBrowserRouter([
             children: [
               {
                 path: ":trackId",
-                element: <Results />,
+                element: <SimilarSongResults />,
               },
             ],
           },

@@ -25,7 +25,12 @@ const BeatsControl = ({
         .fill(0)
         .map((_, index) =>
           index === 0 ? (
-            <Button key={index} size="icon" variant="ghost" className="pointer-events-none">
+            <Button
+              key={index}
+              size="icon"
+              variant="ghost"
+              className="pointer-events-none"
+            >
               <SquareIcon
                 className={cn(
                   previousBeat === index && isPlaying && "fill-primary",
@@ -48,7 +53,7 @@ const BeatsControl = ({
           ),
         )}
       {beats < MAX_BEATS && (
-        <Button size="icon" variant="secondary" onClick={onIncrement}>
+        <Button size="icon" variant="ghost" onClick={onIncrement}>
           <PlusIcon />
         </Button>
       )}

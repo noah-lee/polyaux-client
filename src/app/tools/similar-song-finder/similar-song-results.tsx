@@ -6,7 +6,7 @@ import { useState } from "react";
 
 const LIMIT = 29;
 
-const Results = () => {
+const SimilarSongResults = () => {
   const { trackId } = useParams();
 
   const [playingTrackId, setPlayingTrackId] = useState<string>();
@@ -53,4 +53,4 @@ const Results = () => {
   );
 };
 
-export default Results;
+export default SimilarSongResults;
