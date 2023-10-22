@@ -3,11 +3,16 @@ import { useGetRecommendationsQuery, useGetTrackQuery } from "@/api/spotify";
 import TrackItem from "@/app/tools/similar-song-finder/track-item";
 import TrackItemSkeleton from "@/app/tools/similar-song-finder/track-item-skeleton";
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { ArrowBigUpIcon, RefreshCcwIcon } from "lucide-react";
+import { useScrollContext } from "@/contexts/scroll";
 
 const LIMIT = 29;
 
 const SimilarSongResults = () => {
   const { trackId } = useParams();
+
+  const { onScrollTop } = useScrollContext();
 
   const [playingTrackId, setPlayingTrackId] = useState<string>();
 
@@ -19,7 +24,7 @@ const SimilarSongResults = () => {
     enabled: !!trackId,
   });
 
-  const { data: recommendations } = useGetRecommendationsQuery(
+  const { data: recommendations, refetch } = useGetRecommendationsQuery(
     { seed_tracks: trackId, limit: LIMIT } ?? "",
     {
       enabled: !!trackId,
@@ -49,6 +54,21 @@ const SimilarSongResults = () => {
         : Array(LIMIT)
             .fill(0)
             .map((_, index) => <TrackItemSkeleton key={index} />)}
+      {track && recommendations && (
+        <div className="grid grid-cols-2 gap-4">
+          <Button variant="secondary" onClick={onScrollTop}>
+            <ArrowBigUpIcon />
+          </Button>
+          <Button
+            onClick={() => {
+              onScrollTop();
+              refetch();
+            }}
+          >
+            <RefreshCcwIcon />
+          </Button>
+        </div>
+      )}
     </div>
   );
 };

@@ -23,14 +23,17 @@ const useAudioUserMedia = (audioContext: AudioContext) => {
     };
 
     initializeUserMedia();
+  }, []);
 
+  useEffect(() => {
     return () => {
       if (!mediaStream) {
         return;
       }
+
       mediaStream.getTracks().forEach((track) => track.stop());
     };
-  }, []);
+  }, [mediaStream]);
 
   return { mediaStream, audioSource };
 };

@@ -45,11 +45,11 @@ const LoudnessDisplay = ({
         <div className="grid w-full grid-cols-2">
           <span>Short: </span>
           <span className="justify-self-end whitespace-nowrap text-primary">
-            {short.toFixed(1)}
+            {!loading && short.toFixed(1)}
           </span>
           <span>Momentary: </span>
           <span className="justify-self-end whitespace-nowrap text-primary">
-            {momentary.toFixed(1)}
+            {!loading && momentary.toFixed(1)}
           </span>
         </div>
       </CardContent>

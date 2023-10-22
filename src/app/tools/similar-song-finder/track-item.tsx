@@ -5,6 +5,7 @@ import AudioPlayerButton from "@/app/tools/similar-song-finder/audio-player-butt
 import useAudioElement from "@/hooks/use-audio-element";
 import useImageColor from "@/hooks/use-image-color";
 import { extractSpotifyArtistNames } from "@/utils/spotify";
+import { useScrollContext } from "@/contexts/scroll";
 
 type Props = {
   track: Track;
@@ -18,6 +19,8 @@ const TrackItem = ({
   onPlayingTrackIdChange,
 }: Props) => {
   const { id, external_urls, album, name, artists, preview_url } = track;
+
+  const { onScrollTop } = useScrollContext();
 
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -68,7 +71,7 @@ const TrackItem = ({
           `rgba(${albumColor[0]}, ${albumColor[1]}, ${albumColor[2]}, 0.3)`,
       }}
     >
-      <div className="flex items-center gap-4 overflow-hidden">
+      <div className="flex items-center gap-4 overflow-clip">
         <a href={external_urls.spotify} target="_blank">
           <img
             src={album.images[2].url}
@@ -78,7 +81,11 @@ const TrackItem = ({
             className="rounded"
           />
         </a>
-        <Link to={`../${id}`} className="flex flex-col gap-1 overflow-hidden">
+        <Link
+          to={`../${id}`}
+          className="flex flex-col gap-1 overflow-hidden"
+          onClick={() => onScrollTop()}
+        >
           <p title={name} className="truncate">
             {name}
           </p>

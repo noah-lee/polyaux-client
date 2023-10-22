@@ -37,21 +37,23 @@ const Synthesizer = () => {
     <div className="container">
       <div className="flex flex-col items-center gap-8 py-[64px]">
         <h2 className="text-2xl font-semibold">Synthesizer</h2>
-        <Keys oscillators={[polyOscA, polyOscB]} />
         <div className="grid gap-8">
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
             <Oscillator oscillator={polyOscA} />
             <Oscillator oscillator={polyOscB} />
           </div>
           <Envelope />
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
             <Filter filter={filterNode} />
             <Lfo lfo={lfoNode} />
           </div>
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
             <Reverb reverb={reverbNode} />
             <Delay delay={delayNode} />
           </div>
+        </div>
+        <div className="sticky bottom-0 bg-background w-full flex justify-center">
+          <Keys oscillators={[polyOscA, polyOscB]} />
         </div>
       </div>
     </div>

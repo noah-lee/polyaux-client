@@ -17,7 +17,7 @@ const Envelope = () => {
       <CardHeader>
         <h3 className="text-lg font-semibold">Envelope</h3>
       </CardHeader>
-      <CardContent className="grid grid-cols-1 items-center gap-8 sm:grid-cols-2">
+      <CardContent className="grid grid-cols-1 items-center gap-8 lg:grid-cols-2">
         <div ref={containerRef}>
           <AdsrDisplay
             width={containerWidth ?? 0}

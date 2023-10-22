@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { useAdsrContext } from "@/contexts/adsr";
 import MonoOscillator from "@/audio/mono-oscillator";
 import PolyOscillator from "@/audio/poly-oscillator";
@@ -111,6 +111,8 @@ const Keys = ({ oscillators }: Props) => {
     adsr: { attack, decay, sustain, release },
   } = useAdsrContext();
 
+  const [isPointerDown, setIsPointerDown] = useState(false);
+
   const handleStart = useCallback(
     (frequency: number) =>
       oscillators.forEach((oscillator) =>
@@ -124,6 +126,16 @@ const Keys = ({ oscillators }: Props) => {
       oscillators.forEach((oscillator) => oscillator.stop(frequency, release)),
     [oscillators, release],
   );
+
+  const handlePointerDown = (frequency: number) => {
+    handleStart(frequency);
+    setIsPointerDown(true);
+  };
+
+  const handlePointerUp = (frequency: number) => {
+    handleStart(frequency);
+    setIsPointerDown(false);
+  };
 
   useKeyDown((event) => {
     if (event.repeat) {
@@ -155,14 +167,15 @@ const Keys = ({ oscillators }: Props) => {
         {keys.map(({ key, frequency, position }) => (
           <button
             key={key}
-            onPointerDown={() => handleStart(frequency)}
-            onPointerUp={() => handleStop(frequency)}
+            onPointerDown={() => handlePointerDown(frequency)}
+            onPointerUp={() => handlePointerUp(frequency)}
+            onPointerEnter={() => isPointerDown && handleStart(frequency)}
             onPointerOut={() => handleStop(frequency)}
             className={cn(
               "absolute flex items-end justify-start rounded-lg border p-2",
               position % 1
                 ? "z-10 h-[112px] translate-x-1/4 bg-primary text-primary-foreground"
-                : "500 h-[176px]",
+                : "500 h-[176px] bg-card",
             )}
             style={{
               left: KEY_WIDTH * position,

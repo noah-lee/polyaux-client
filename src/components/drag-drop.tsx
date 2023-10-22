@@ -55,7 +55,7 @@ const DragDrop = ({ children, className, onFileChange, ...props }: Props) => {
   return (
     <div
       className={cn(
-        "flex w-full flex-col items-center justify-center gap-3 border border-dashed p-8 rounded-lg",
+        "flex w-full flex-col items-center justify-center gap-3 border border-dashed p-8 rounded-lg bg-card",
         isDragging && "bg-muted/20",
         className,
       )}

@@ -31,6 +31,13 @@ const TunerDisplay = ({ width, height, percentage, disabled }: Props) => {
         fill="none"
         className="stroke-muted"
       />
+      <path
+        d={`M ${width * 0.5} ${height * 0.25} L ${width * 0.5} ${
+          height * 0.75
+        }`}
+        strokeWidth={2}
+        className="stroke-primary"
+      />
       <circle
         cx={x}
         cy={y}

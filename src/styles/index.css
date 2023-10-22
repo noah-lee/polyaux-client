@@ -4,8 +4,8 @@
 
 @layer base {
   :root {
-    --background: 50 10% 90%;
-    --foreground: 50 10% 10%;
+    --background: 50 10% 85%;
+    --foreground: 50 10% 15%;
     --card: 50 10% 90%;
     --card-foreground: 50 10% 15%;
     --popover: 50 10% 90%;
@@ -24,36 +24,36 @@
     --success-foreground: 50 10% 15%;
     --warning: 35 40% 60%;
     --warning-foreground: 50 10% 15%;
-    --border: 50 10% 15%;
+    --border: 50 10% 20%;
     --input: 50 10% 80%;
     --ring: 50 20% 15%;
     --radius: 1rem;
   }
 
   .dark {
-    --background: 50 10% 10%;
-    --foreground: 50 10% 95%;
+    --background: 50 10% 15%;
+    --foreground: 50 10% 85%;
     --card: 50 10% 10%;
-    --card-foreground: 50 10% 90%;
+    --card-foreground: 50 10% 85%;
     --popover: 50 10% 10%;
-    --popover-foreground: 50 10% 90%;
-    --primary: 50 10% 85%;
-    --primary-foreground: 50 10% 20%;
+    --popover-foreground: 50 10% 85%;
+    --primary: 50 10% 80%;
+    --primary-foreground: 50 10% 15%;
     --secondary: 50 10% 20%;
-    --secondary-foreground: 50 10% 90%;
+    --secondary-foreground: 50 10% 85%;
     --muted: 50 10% 30%;
     --muted-foreground: 50 10% 65%;
     --accent: 50 10% 20%;
-    --accent-foreground: 50 10% 90%;
+    --accent-foreground: 50 10% 85%;
     --destructive: 10 40% 40%;
-    --destructive-foreground: 50 10% 90%;
+    --destructive-foreground: 50 10% 85%;
     --success: 135 40% 40%;
-    --success-foreground: 50 10% 90%;
+    --success-foreground: 50 10% 85%;
     --warning: 35 40% 40%;
-    --success-foreground: 50 10% 90%;
-    --border: 50 10% 90%;
+    --success-foreground: 50 10% 85%;
+    --border: 50 10% 80%;
     --input: 50 10% 20%;
-    --ring: 50 20% 90%;
+    --ring: 50 20% 85%;
   }
 }
 

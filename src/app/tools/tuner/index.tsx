@@ -22,6 +22,7 @@ const Tuner = () => {
   const [notes, setNotes] = useState<string[]>([]);
   const [cents, setCents] = useState<(number | undefined)[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
+  const animationFrameRef = useRef(0);
 
   const { mediaStream, audioSource } = useAudioUserMedia(audioContext);
 
@@ -50,14 +51,13 @@ const Tuner = () => {
       setCents((prevCents) =>
         [centsOffset, ...prevCents].slice(0, WINDOW_SIZE),
       );
-
-      return requestAnimationFrame(updateNote);
+    } else {
+      setNotes((prevNotes) => ["", ...prevNotes].slice(0, WINDOW_SIZE));
+      setCents((prevCents) => [undefined, ...prevCents].slice(0, WINDOW_SIZE));
     }
 
-    setNotes((prevNotes) => ["", ...prevNotes].slice(0, WINDOW_SIZE));
-    setCents((prevCents) => [undefined, ...prevCents].slice(0, WINDOW_SIZE));
-
-    return requestAnimationFrame(updateNote);
+    animationFrameRef.current = requestAnimationFrame(updateNote);
+    return;
   }, [audioContext, analyser]);
 
   useEffect(() => {
@@ -68,6 +68,8 @@ const Tuner = () => {
     audioContext.resume();
     audioSource.connect(analyser);
     updateNote();
+
+    return () => cancelAnimationFrame(animationFrameRef.current);
   }, [mediaStream, audioSource, audioContext, analyser, updateNote]);
 
   const mostFrequentNote = useMemo(() => getMostOccurrence(notes), [notes]);
@@ -77,28 +79,26 @@ const Tuner = () => {
     [cents],
   );
 
-  const position = useMemo(
-    () =>
-      mostFrequentNote && averageCents
-        ? percentage(averageCents, -50, 50)
-        : 0.5,
-    [mostFrequentNote, averageCents],
-  );
-
-  const color = useMemo(() => {
+  const position = useMemo(() => {
     if (!mostFrequentNote || !averageCents) {
-      return "";
+      return 0.5;
     }
 
-    if (Math.abs(averageCents) > 25) {
-      return "text-destructive";
+    const actualPosition = percentage(averageCents, -50, 50);
+
+    if (actualPosition > 0.475 && actualPosition < 0.525) {
+      return 0.5;
     }
 
-    if (Math.abs(averageCents) > 5) {
-      return "text-warning";
+    return actualPosition;
+  }, [mostFrequentNote, averageCents]);
+
+  const hue = useMemo(() => {
+    if (!mostFrequentNote || !averageCents) {
+      return;
     }
 
-    return "text-success";
+    return Math.max(1 - percentage(Math.abs(averageCents), 0, 30), 0) * 100;
   }, [mostFrequentNote, averageCents]);
 
   const { width: containerWidth } = useElementSize(containerRef);
@@ -118,7 +118,12 @@ const Tuner = () => {
               percentage={position}
             />
           )}
-          <p className={cn("pb-4 text-5xl font-bold", color)}>
+          <p
+            className={cn("pb-4 text-5xl font-bold")}
+            style={{
+              color: hue === undefined ? "inherit" : `hsl(${hue}, 40%, 60%)`,
+            }}
+          >
             {mostFrequentNote || "."}
           </p>
         </Card>

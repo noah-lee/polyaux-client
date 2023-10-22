@@ -91,9 +91,9 @@ const PlatformPlayer = ({
   }, [integrated, platform]);
 
   return (
-    <Card>
+    <Card className="overflow-hidden">
       <CardHeader>
-        <h3 className="text-lg font-semibold">Listen on</h3>
+        <h3 className="text-lg font-semibold">Listening on</h3>
       </CardHeader>
       <CardContent className="flex flex-col gap-8">
         <Select value={platform.name} onValueChange={handlePlatformChange}>
@@ -110,7 +110,13 @@ const PlatformPlayer = ({
             </SelectGroup>
           </SelectContent>
         </Select>
-        <div className="flex flex-wrap justify-evenly gap-8 text-xl">
+        <AudioPlayer
+          audioContext={audioContext}
+          audioBuffer={audioBuffer}
+          volume={volume}
+          disabled={loading}
+        />
+        <div className="grid grid-cols-2 gap-8">
           <div className="flex flex-col items-center gap-2">
             <p className="font-medium">Target (LUFS)</p>
             <p>{(platform.target || integrated).toFixed(1)}</p>
@@ -118,7 +124,7 @@ const PlatformPlayer = ({
           <div className="flex flex-col items-center gap-2">
             <p className="font-medium">Penalty (dB)</p>
             {loading ? (
-              <Loader2Icon width={28} height={28} className="animate-spin" />
+              <Loader2Icon width={24} height={24} className="animate-spin" />
             ) : (
               <p>
                 {(platform.target ? platform.target - integrated : 0).toFixed(
@@ -128,13 +134,12 @@ const PlatformPlayer = ({
             )}
           </div>
         </div>
-        <AudioPlayer
-          audioContext={audioContext}
-          audioBuffer={audioBuffer}
-          volume={volume}
-          disabled={loading}
-        />
-        <p>{fileName}</p>
+        <p
+          className="overflow-hidden truncate whitespace-pre-wrap"
+          title={fileName}
+        >
+          {fileName}
+        </p>
       </CardContent>
     </Card>
   );
