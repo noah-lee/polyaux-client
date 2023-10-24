@@ -110,7 +110,7 @@ class MonoOscillator {
     this.frequency = frequency;
 
     this._envelope.gain.cancelScheduledValues(now);
-    this._envelope.gain.setValueAtTime(0, now);
+    // this._envelope.gain.setValueAtTime(0, now);
     this._envelope.gain.linearRampToValueAtTime(
       1,
       now + Math.max(attack, 0.015),

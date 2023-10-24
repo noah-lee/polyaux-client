@@ -3,8 +3,8 @@ import { ThemeSelector } from "@/components/theme-selector";
 import { Button } from "@/components/ui/button";
 import { useScrollContext } from "@/contexts/scroll";
 import { MenuIcon } from "lucide-react";
-import { MouseEvent, useEffect, useState } from "react";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { MouseEvent, useState } from "react";
+import { Outlet } from "react-router-dom";
 
 const App = () => {
   const { ref: scrollRef } = useScrollContext();
@@ -21,7 +21,6 @@ const App = () => {
   };
 
   return (
-    // <div className="flex h-screen">
     <div className="flex h-screen w-full" style={{ position: "fixed" }}>
       <SidebarMenu open={open} onClose={handleClose} />
       <main
