@@ -1,7 +1,7 @@
 import EffectNode from "@/audio/effect";
 import { clamp } from "@/utils/math";
 
-type DelayEffectNodeOptions = {
+export type DelayEffectNodeOptions = {
   delayTime?: number;
   feedback?: number;
   mix?: number;
@@ -16,12 +16,12 @@ class DelayEffectNode extends EffectNode {
     super(audioContext, options?.mix, options?.bypass);
 
     this._delayNode = new DelayNode(audioContext, {
-      delayTime: options?.delayTime ?? 0.5,
+      delayTime: options?.delayTime ?? 0.75,
       maxDelayTime: 5,
     });
 
     this._feedbackNode = new GainNode(audioContext, {
-      gain: options?.feedback ?? 0.5,
+      gain: options?.feedback ?? 0.25,
     });
 
     this.input.connect(this.wet);

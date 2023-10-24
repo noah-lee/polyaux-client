@@ -5,33 +5,53 @@ import Keys from "@/app/tools/synthesizer/keys";
 import Lfo from "@/app/tools/synthesizer/lfo";
 import Oscillator from "@/app/tools/synthesizer/oscillator";
 import Reverb from "@/app/tools/synthesizer/reverb";
-import DelayEffectNode from "@/audio/delay";
+import DelayEffectNode, { DelayEffectNodeOptions } from "@/audio/delay";
 import DistortionEffectNode from "@/audio/distortion";
-import FilterNode from "@/audio/filter";
-import LfoNode from "@/audio/lfo";
-import PolyOscillator from "@/audio/poly-oscillator";
-import ReverbEffectNode from "@/audio/reverb";
+import FilterNode, { FilterNodeSettings } from "@/audio/filter";
+import LfoNode, { LfoNodeSettings } from "@/audio/lfo";
+import PolyOscillator, {
+  PolyOscillatorSettings,
+} from "@/audio/poly-oscillator";
+import ReverbEffectNode, { ReverbEffectNodeOptions } from "@/audio/reverb";
 import { useAudioContext } from "@/contexts/audio";
 import useMutable from "@/hooks/use-mutable";
+
+const SETTINGS: {
+  oscA: PolyOscillatorSettings;
+  oscB: PolyOscillatorSettings;
+  filter: FilterNodeSettings;
+  lfo: LfoNodeSettings;
+  reverb: ReverbEffectNodeOptions;
+  delay: DelayEffectNodeOptions;
+} = {
+  oscA: { gain: 0.75 },
+  oscB: { type: "triangle", gain: 0.5 },
+  filter: { bypass: true },
+  lfo: { amplitude: 0.25 },
+  reverb: { decay: 1, mix: 0.25 },
+  delay: { bypass: true },
+};
 
 const Synthesizer = () => {
   const audioContext = useAudioContext();
 
-  const polyOscA = useMutable(new PolyOscillator(audioContext));
-  const polyOscB = useMutable(new PolyOscillator(audioContext));
-  const filterNode = useMutable(new FilterNode(audioContext));
-  const lfoNode = useMutable(new LfoNode(audioContext));
-  const reverbNode = useMutable(new ReverbEffectNode(audioContext));
-  const delayNode = useMutable(new DelayEffectNode(audioContext));
-  const distortionNode = useMutable(new DistortionEffectNode(audioContext));
+  const polyOscA = useMutable(new PolyOscillator(audioContext, SETTINGS.oscA));
+  const polyOscB = useMutable(new PolyOscillator(audioContext, SETTINGS.oscB));
+  const filterNode = useMutable(new FilterNode(audioContext, SETTINGS.filter));
+  const lfoNode = useMutable(new LfoNode(audioContext, SETTINGS.lfo));
+  const reverbNode = useMutable(
+    new ReverbEffectNode(audioContext, SETTINGS.reverb),
+  );
+  const delayNode = useMutable(
+    new DelayEffectNode(audioContext, SETTINGS.delay),
+  );
 
   polyOscA.connect(filterNode);
   polyOscB.connect(filterNode);
   filterNode.connect(lfoNode);
   lfoNode.connect(reverbNode);
   reverbNode.connect(delayNode);
-  delayNode.connect(distortionNode);
-  distortionNode.connect(audioContext.destination);
+  delayNode.connect(audioContext.destination);
 
   return (
     <div className="container">
@@ -52,7 +72,7 @@ const Synthesizer = () => {
             <Delay delay={delayNode} />
           </div>
         </div>
-        <div className="sticky bottom-0 bg-background w-full flex justify-center">
+        <div className="sticky bottom-0 flex w-full justify-center bg-background">
           <Keys oscillators={[polyOscA, polyOscB]} />
         </div>
       </div>

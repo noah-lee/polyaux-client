@@ -16,10 +16,10 @@ const AdsrContext = createContext<AdsrContextProps>({} as AdsrContextProps);
 
 export const AdsrContextProvider = ({ children }: { children: ReactNode }) => {
   const [adsr, setAdsr] = useState({
-    attack: 0,
-    decay: 1,
-    sustain: 0.75,
-    release: 0.5,
+    attack: 0.05,
+    decay: 2,
+    sustain: 0,
+    release: 2,
   });
 
   const handleAdsrChange = (adsr: Adsr) => {

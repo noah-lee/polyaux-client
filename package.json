@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "docker:build": "docker build -t polyaux-client .",
+    "docker:run": "docker run --name=polyaux-client -p 80:80 polyaux-client"
   },
   "dependencies": {
     "@radix-ui/react-dropdown-menu": "^2.0.6",
@@ -30,6 +32,7 @@
     "react-router-dom": "^6.16.0"
   },
   "devDependencies": {
+    "@flydotio/dockerfile": "^0.4.10",
     "@types/node": "^20.8.4",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",

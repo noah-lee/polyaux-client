@@ -1,16 +1,40 @@
-import { useRef } from "react";
-import { useAdsrContext } from "@/contexts/adsr";
+import { useMemo, useRef } from "react";
+import { Adsr, useAdsrContext } from "@/contexts/adsr";
 import useElementSize from "@/hooks/use-element-size";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import AdsrDisplay from "@/app/tools/synthesizer/envelope/adsr-display";
 import CircularSlider from "@/components/ui/circular-slider";
+import { exponentialToLinear, linearToExponential } from "@/utils/math";
+
+const MIN_TIME = 0;
+const MAX_TIME = 5;
 
 const Envelope = () => {
   const { adsr, onAdsrChange } = useAdsrContext();
 
+  const handleAdsrTimeChange = (percentage: number, property: keyof Adsr) => {
+    const time = linearToExponential(percentage, MIN_TIME, MAX_TIME, 0, 100, 3);
+    onAdsrChange({ ...adsr, [property]: time });
+  };
+
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   const { width: containerWidth } = useElementSize(containerRef);
+
+  const attackPercentage = useMemo(
+    () => exponentialToLinear(adsr.attack, MIN_TIME, MAX_TIME, 0, 100, 3),
+    [adsr],
+  );
+
+  const decayPercentage = useMemo(
+    () => exponentialToLinear(adsr.decay, MIN_TIME, MAX_TIME, 0, 100, 3),
+    [adsr],
+  );
+
+  const releasePercentage = useMemo(
+    () => exponentialToLinear(adsr.release, MIN_TIME, MAX_TIME, 0, 100, 3),
+    [adsr],
+  );
 
   return (
     <Card>
@@ -22,10 +46,10 @@ const Envelope = () => {
           <AdsrDisplay
             width={containerWidth ?? 0}
             height={96}
-            attack={adsr.attack / 5}
-            decay={adsr.decay / 5}
-            sustain={adsr.sustain / 1}
-            release={adsr.release / 5}
+            attack={attackPercentage / 100}
+            decay={decayPercentage / 100}
+            sustain={adsr.sustain}
+            release={releasePercentage / 100}
           />
         </div>
         <div
@@ -35,11 +59,8 @@ const Envelope = () => {
           <div className="flex flex-col items-center gap-2">
             <p>Attack</p>
             <CircularSlider
-              value={adsr.attack}
-              onChange={(value) => onAdsrChange({ ...adsr, attack: value })}
-              min={0}
-              max={5}
-              step={0.01}
+              value={attackPercentage}
+              onChange={(value) => handleAdsrTimeChange(value, "attack")}
               range={0.8}
               size={64}
             />
@@ -47,11 +68,8 @@ const Envelope = () => {
           <div className="flex flex-col items-center gap-2">
             <p>Decay</p>
             <CircularSlider
-              value={adsr.decay}
-              onChange={(value) => onAdsrChange({ ...adsr, decay: value })}
-              min={0}
-              max={5}
-              step={0.01}
+              value={decayPercentage}
+              onChange={(value) => handleAdsrTimeChange(value, "decay")}
               range={0.8}
               size={64}
             />
@@ -71,11 +89,8 @@ const Envelope = () => {
           <div className="flex flex-col items-center gap-2">
             <p>Release</p>
             <CircularSlider
-              value={adsr.release}
-              onChange={(value) => onAdsrChange({ ...adsr, release: value })}
-              min={0}
-              max={5}
-              step={0.01}
+              value={releasePercentage}
+              onChange={(value) => handleAdsrTimeChange(value, "release")}
               range={0.8}
               size={64}
             />

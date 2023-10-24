@@ -21,15 +21,15 @@ const App = () => {
   };
 
   return (
-    <div className="flex h-screen">
+    // <div className="flex h-screen">
+    <div className="flex h-screen w-full" style={{ position: "fixed" }}>
       <SidebarMenu open={open} onClose={handleClose} />
       <main
         ref={scrollRef}
         className="flex min-h-screen flex-grow flex-col overflow-y-auto"
       >
-        <header className="container sticky top-0 z-20 flex items-center justify-between bg-background p-4 md:justify-end">
+        <header className="container sticky top-0 z-20 flex items-center justify-between p-2 md:justify-end">
           <Button
-            variant="ghost"
             size="icon"
             onClick={handleOpen}
             className="visible md:hidden"

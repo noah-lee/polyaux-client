@@ -1,7 +1,7 @@
 import MonoOscillator from "@/audio/mono-oscillator";
 import { clamp } from "@/utils/math";
 
-type PolyOscillatorSettings = {
+export type PolyOscillatorSettings = {
   voices?: number;
   type?: OscillatorType;
   gain?: number;
@@ -28,7 +28,7 @@ class PolyOscillator {
 
   connect(node: AudioNode, output?: number, input?: number) {
     this.monoSynths.forEach((monoSynth) =>
-      monoSynth.connect(node, output, input)
+      monoSynth.connect(node, output, input),
     );
   }
 
@@ -70,7 +70,7 @@ class PolyOscillator {
 
   start(frequency: number, attack = 0, decay = 0, sustain = 1) {
     const playing = this.monoSynths.find(
-      (monoSynth) => monoSynth.playing && monoSynth.frequency === frequency
+      (monoSynth) => monoSynth.playing && monoSynth.frequency === frequency,
     );
 
     if (playing) {
@@ -88,7 +88,7 @@ class PolyOscillator {
 
   stop(frequency: number, release = 0) {
     const playing = this.monoSynths.find(
-      (monoSynth) => monoSynth.playing && monoSynth.frequency === frequency
+      (monoSynth) => monoSynth.playing && monoSynth.frequency === frequency,
     );
 
     if (!playing) {

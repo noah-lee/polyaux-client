@@ -103,7 +103,7 @@ const KEY_WIDTH = 64;
 const KEYBOARD_WIDTH = (keys[keys.length - 1].position + 1) * KEY_WIDTH;
 
 type Props = {
-  oscillators: (MonoOscillator | PolyOscillator)[];
+  oscillators: PolyOscillator[];
 };
 
 const Keys = ({ oscillators }: Props) => {

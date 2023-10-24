@@ -127,8 +127,6 @@ class MonoOscillator {
     this._envelope.gain.setTargetAtTime(0, now, release / 4);
     this._envelope.gain.setValueAtTime(0, now + release + 0.5);
 
-    this._oscillator.frequency.setValueAtTime(0, now);
-
     this._playing = false;
   }
 

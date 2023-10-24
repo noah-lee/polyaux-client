@@ -17,11 +17,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Slider } from "@/components/ui/slider";
 import CircularSlider from "@/components/ui/circular-slider";
 
-const FILTER_FREQUENCY_MIN = 20;
-const FILTER_FREQUENCY_MAX = 20000;
+const FREQUENCY_MIN = 20;
+const FREQUENCY_MAX = 20000;
 
 type Props = {
   filter: FilterNode;
@@ -40,8 +39,8 @@ const Filter = ({ filter }: Props) => {
   const handleFrequencyChange = (percentage: number) => {
     const exponentialFrequency = linearToExponential(
       percentage,
-      FILTER_FREQUENCY_MIN,
-      FILTER_FREQUENCY_MAX,
+      FREQUENCY_MIN,
+      FREQUENCY_MAX,
       0,
       100,
       3,
@@ -57,14 +56,7 @@ const Filter = ({ filter }: Props) => {
 
   const percentageFrequency = useMemo(
     () =>
-      exponentialToLinear(
-        frequency,
-        FILTER_FREQUENCY_MIN,
-        FILTER_FREQUENCY_MAX,
-        0,
-        100,
-        3,
-      ),
+      exponentialToLinear(frequency, FREQUENCY_MIN, FREQUENCY_MAX, 0, 100, 3),
     [frequency],
   );
 

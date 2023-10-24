@@ -1,7 +1,7 @@
 import EffectNode from "@/audio/effect";
 import { clamp } from "@/utils/math";
 
-type ReverbEffectNodeOptions = {
+export type ReverbEffectNodeOptions = {
   decay?: number;
   mix?: number;
   bypass?: boolean;

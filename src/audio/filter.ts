@@ -1,6 +1,6 @@
 import CustomAudioNode from "@/audio/custom";
 
-type FilterNodeSettings = {
+export type FilterNodeSettings = {
   type?: BiquadFilterType;
   frequency?: number;
   bypass?: boolean;
@@ -10,7 +10,7 @@ class FilterNode extends CustomAudioNode {
   private _filterNode: BiquadFilterNode;
 
   constructor(audioContext: AudioContext, options?: FilterNodeSettings) {
-    super(audioContext);
+    super(audioContext, options?.bypass);
 
     this._filterNode = new BiquadFilterNode(audioContext, {
       type: options?.type,

@@ -12,6 +12,7 @@ import {
 } from "@/api/spotify/dtos/tracks-features";
 
 export const search = async (queryParams: SearchQueryDto) => {
+  console.log(axios.defaults.baseURL);
   const { data } = await axios.get("/spotify/search", { params: queryParams });
   return data;
 };

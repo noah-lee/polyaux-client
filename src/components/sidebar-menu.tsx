@@ -96,19 +96,24 @@ const SidebarMenu = ({ open, onClose }: Props) => {
         </div>
       </div>
       <div className="flex flex-col gap-4">
-        <div className="flex items-center gap-2">
-          <Button asChild size="icon">
-            <a href="mailto:enoahstudio@gmail.com">
-              <MailIcon className="h-[1.2rem] w-[1.2rem]" />
-            </a>
-          </Button>
-          <Button asChild size="icon">
-            <a href="https://www.instagram.com/enoahmusic/" target="_blank">
-              <InstagramIcon className="h-[1.2rem] w-[1.2rem]" />
-            </a>
-          </Button>
-          <Button asChild size="icon">
-            <a href="https://www.paypal.com/donate/?business=AKW7CBTBNXFXA&no_recurring=0&item_name=Your+donation+will+help+me+maintain+and+improve+PolyAux+%F0%9F%99%8C&currency_code=USD" target="_blank">
+        <div className="flex justify-between">
+          <div className="flex items-center gap-2">
+            <Button asChild size="icon">
+              <a href="mailto:enoahstudio@gmail.com">
+                <MailIcon className="h-[1.2rem] w-[1.2rem]" />
+              </a>
+            </Button>
+            <Button asChild size="icon">
+              <a href="https://www.instagram.com/enoahmusic/" target="_blank">
+                <InstagramIcon className="h-[1.2rem] w-[1.2rem]" />
+              </a>
+            </Button>
+          </div>
+          <Button asChild variant="secondary" size="icon">
+            <a
+              href="https://www.paypal.com/donate/?business=AKW7CBTBNXFXA&no_recurring=0&item_name=Your+donation+will+help+me+maintain+and+improve+PolyAux+%F0%9F%99%8C&currency_code=USD"
+              target="_blank"
+            >
               <DollarSignIcon className="h-[1.2rem] w-[1.2rem]" />
             </a>
           </Button>

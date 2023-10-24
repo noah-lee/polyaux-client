@@ -1,7 +1,7 @@
 import CustomAudioNode from "@/audio/custom";
 import { clamp } from "@/utils/math";
 
-type LfoNodeSettings = {
+export type LfoNodeSettings = {
   type?: OscillatorType;
   frequency?: number;
   amplitude?: number;
@@ -15,7 +15,7 @@ class LfoNode extends CustomAudioNode {
   private _gainNode: GainNode;
 
   constructor(audioContext: AudioContext, options?: LfoNodeSettings) {
-    super(audioContext);
+    super(audioContext, options?.bypass);
 
     this._oscillatorNode = new OscillatorNode(audioContext, {
       type: options?.type,

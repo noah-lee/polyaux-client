@@ -10,7 +10,6 @@ import "@/styles/index.css";
 import { defaultOptions } from "@/api/react-query.ts";
 import App from "./app/index.tsx";
 import Home from "@/app/home.tsx";
-import Tools from "@/app/tools/index.tsx";
 import Synthesizer from "@/app/tools/synthesizer";
 import Metronome from "@/app/tools/metronome/index.tsx";
 import Tuner from "@/app/tools/tuner/index.tsx";
