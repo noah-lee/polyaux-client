@@ -28,17 +28,17 @@ const SETTINGS: {
   delay: DelayEffectNodeOptions;
 } = {
   oscA: { gain: 0.75 },
-  oscB: { type: "triangle", gain: 0.5 },
+  oscB: { type: "triangle", gain: 0.35, octave: 1 },
   filter: { bypass: true },
-  lfo: { amplitude: 0.25 },
-  reverb: { decay: 1, mix: 0.25 },
-  delay: { bypass: true },
+  lfo: { amplitude: 0.4 },
+  reverb: { decay: 1, mix: 0.3 },
+  delay: { mix: 0.3 },
 };
 
 const Synthesizer = () => {
   const audioContext = useAudioContext();
 
-  const [tab, setTab] = useState("controls");
+  const [tab, setTab] = useState("keyboard");
 
   const polyOscA = useMutable(new PolyOscillator(audioContext, SETTINGS.oscA));
   const polyOscB = useMutable(new PolyOscillator(audioContext, SETTINGS.oscB));
@@ -67,7 +67,7 @@ const Synthesizer = () => {
           onValueChange={(tab) => setTab(tab)}
           className="flex w-full flex-col items-center space-y-8"
         >
-          <TabsList className="sticky top-10">
+          <TabsList className="sticky top-40">
             <TabsTrigger value="controls">Controls</TabsTrigger>
             <TabsTrigger value="keyboard">Keyboard</TabsTrigger>
           </TabsList>
