@@ -6,6 +6,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowBigUpIcon, RefreshCcwIcon } from "lucide-react";
 import { useScrollContext } from "@/contexts/scroll";
+import { Separator } from "@/components/ui/separator";
 
 const LIMIT = 29;
 
@@ -32,7 +33,7 @@ const SimilarSongResults = () => {
   );
 
   return (
-    <div className="flex w-full max-w-[640px] flex-col gap-4">
+    <div className="flex w-full max-w-[640px] flex-col items-center gap-4">
       {track ? (
         <TrackItem
           track={track}
@@ -42,6 +43,7 @@ const SimilarSongResults = () => {
       ) : (
         <TrackItemSkeleton />
       )}
+      <div className="h-8" />
       {recommendations
         ? recommendations.tracks.map((track) => (
             <TrackItem

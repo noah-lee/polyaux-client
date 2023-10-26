@@ -5,7 +5,6 @@ import { Pause, Play } from "lucide-react";
 import useMutable from "@/hooks/use-mutable";
 
 import useInterval from "@/hooks/use-interval";
-import useKeyDown from "@/hooks/use-key-down";
 import AudioPlayerClass from "@/audio/audio-player";
 
 type Props = {

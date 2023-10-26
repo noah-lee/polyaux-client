@@ -31,7 +31,7 @@ class MonoOscillator {
     });
     this._oscillator.start();
 
-    this._attenuator = new GainNode(audioContext, { gain: 0.25 });
+    this._attenuator = new GainNode(audioContext, { gain: 0.5 });
 
     this._envelope = new GainNode(audioContext, { gain: 0 });
 
@@ -122,10 +122,14 @@ class MonoOscillator {
 
   stop(release = 0) {
     const now = this.audioContext.currentTime;
-
-    this._envelope.gain.cancelAndHoldAtTime(now);
-    this._envelope.gain.setTargetAtTime(0, now, release / 4);
-    this._envelope.gain.setValueAtTime(0, now + release + 0.5);
+    if (navigator.userAgent.includes("Firefox")) {
+      this._envelope.gain.setValueAtTime(this._envelope.gain.value, now);
+      this._envelope.gain.linearRampToValueAtTime(0, now + release);
+    } else {
+      this._envelope.gain.cancelAndHoldAtTime(now);
+      this._envelope.gain.setTargetAtTime(0, now, release / 4);
+      this._envelope.gain.setValueAtTime(0, now + release + 0.5);
+    }
 
     this._playing = false;
   }

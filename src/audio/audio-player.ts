@@ -117,7 +117,7 @@ class AudioPlayer {
   }
 
   set volume(value: number) {
-    const clampedValue = clamp(value, 0, 1);
+    const clampedValue = clamp(value, 0, 2);
     this.gainNode.gain.setTargetAtTime(
       clampedValue,
       this.audioContext.currentTime,

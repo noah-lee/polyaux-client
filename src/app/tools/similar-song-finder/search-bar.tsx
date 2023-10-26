@@ -51,7 +51,7 @@ const SearchBar = () => {
   useClickOutside(inputRef, handleClickOutside);
 
   return (
-    <div className="sticky top-20 z-10 w-full max-w-[480px]">
+    <div className="sticky top-[72px] z-10 w-full max-w-[480px]">
       <div ref={inputRef} className="relative">
         <Input
           placeholder="Search"

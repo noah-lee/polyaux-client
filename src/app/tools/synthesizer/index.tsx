@@ -13,8 +13,11 @@ import PolyOscillator, {
   PolyOscillatorSettings,
 } from "@/audio/poly-oscillator";
 import ReverbEffectNode, { ReverbEffectNodeOptions } from "@/audio/reverb";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAudioContext } from "@/contexts/audio";
 import useMutable from "@/hooks/use-mutable";
+import { cn } from "@/utils/styles";
+import { useState } from "react";
 
 const SETTINGS: {
   oscA: PolyOscillatorSettings;
@@ -34,6 +37,8 @@ const SETTINGS: {
 
 const Synthesizer = () => {
   const audioContext = useAudioContext();
+
+  const [tab, setTab] = useState("controls");
 
   const polyOscA = useMutable(new PolyOscillator(audioContext, SETTINGS.oscA));
   const polyOscB = useMutable(new PolyOscillator(audioContext, SETTINGS.oscB));
@@ -57,24 +62,38 @@ const Synthesizer = () => {
     <div className="container">
       <div className="flex flex-col items-center gap-8 py-[64px]">
         <h2 className="text-2xl font-semibold">Synthesizer</h2>
-        <div className="grid gap-8">
-          <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-            <Oscillator oscillator={polyOscA} />
-            <Oscillator oscillator={polyOscB} />
-          </div>
-          <Envelope />
-          <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-            <Filter filter={filterNode} />
-            <Lfo lfo={lfoNode} />
-          </div>
-          <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-            <Reverb reverb={reverbNode} />
-            <Delay delay={delayNode} />
-          </div>
-        </div>
-        <div className="sticky bottom-0 flex w-full justify-center bg-background">
-          <Keys oscillators={[polyOscA, polyOscB]} />
-        </div>
+        <Tabs
+          value={tab}
+          onValueChange={(tab) => setTab(tab)}
+          className="flex w-full flex-col items-center space-y-8"
+        >
+          <TabsList className="sticky top-10">
+            <TabsTrigger value="controls">Controls</TabsTrigger>
+            <TabsTrigger value="keyboard">Keyboard</TabsTrigger>
+          </TabsList>
+          <TabsContent value="controls" className="m-0 grid gap-8">
+            <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+              <Oscillator oscillator={polyOscA} />
+              <Oscillator oscillator={polyOscB} />
+            </div>
+            <Envelope />
+            <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+              <Filter filter={filterNode} />
+              <Lfo lfo={lfoNode} />
+            </div>
+            <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+              <Reverb reverb={reverbNode} />
+              <Delay delay={delayNode} />
+            </div>
+          </TabsContent>
+          <TabsContent
+            value="keyboard"
+            className={cn("m-0 max-w-full", tab !== "keyboard" && "hidden")}
+            forceMount
+          >
+            <Keys oscillators={[polyOscA, polyOscB]} />
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );

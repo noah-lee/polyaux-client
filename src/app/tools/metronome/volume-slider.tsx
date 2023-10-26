@@ -13,7 +13,7 @@ export const VolumeSlider = ({ volume, onVolumeChange }: Props) => {
       <Slider
         value={[volume]}
         onValueChange={(values) => onVolumeChange(values[0])}
-        max={1}
+        max={2}
         step={0.01}
       />
     </div>

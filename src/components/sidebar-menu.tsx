@@ -60,7 +60,7 @@ const SidebarMenu = ({ open, onClose }: Props) => {
     <aside
       ref={ref}
       className={cn(
-        "fixed z-40 flex h-screen w-full max-w-[240px] flex-col justify-between bg-card p-4 transition duration-200 ease-in-out md:static",
+        "fixed z-40 flex h-full w-full max-w-[240px] flex-col justify-between bg-card p-4 transition duration-200 ease-in-out md:static gap-8",
         !open && "-translate-x-full md:translate-x-0",
       )}
     >

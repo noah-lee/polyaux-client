@@ -64,7 +64,7 @@ const TrackItem = ({
 
   return (
     <div
-      className="flex items-center justify-between gap-8 rounded-md p-4"
+      className="flex items-center justify-between gap-8 rounded-md p-4 w-full"
       style={{
         backgroundColor:
           albumColor &&

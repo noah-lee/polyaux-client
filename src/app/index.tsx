@@ -27,7 +27,7 @@ const App = () => {
         ref={scrollRef}
         className="flex min-h-screen flex-grow flex-col overflow-y-auto"
       >
-        <header className="container sticky top-0 z-20 flex items-center justify-between p-2 md:justify-end">
+        <header className="container sticky top-0 z-20 flex items-center justify-between p-4 md:justify-end">
           <Button
             size="icon"
             onClick={handleOpen}

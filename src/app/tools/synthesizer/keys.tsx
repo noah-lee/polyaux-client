@@ -111,19 +111,26 @@ const Keys = ({ oscillators }: Props) => {
     adsr: { attack, decay, sustain, release },
   } = useAdsrContext();
 
+  const [playingFrequencies, setPlayingFrequencies] = useState<number[]>([]);
   const [isPointerDown, setIsPointerDown] = useState(false);
 
   const handleStart = useCallback(
-    (frequency: number) =>
+    (frequency: number) => {
       oscillators.forEach((oscillator) =>
         oscillator.start(frequency, attack, decay, sustain),
-      ),
+      );
+      setPlayingFrequencies((state) => [...state, frequency]);
+    },
     [oscillators, attack, decay, sustain],
   );
 
   const handleStop = useCallback(
-    (frequency: number) =>
-      oscillators.forEach((oscillator) => oscillator.stop(frequency, release)),
+    (frequency: number) => {
+      oscillators.forEach((oscillator) => oscillator.stop(frequency, release));
+      setPlayingFrequencies((state) =>
+        state.filter((playingFrequency) => playingFrequency !== frequency),
+      );
+    },
     [oscillators, release],
   );
 
@@ -172,10 +179,11 @@ const Keys = ({ oscillators }: Props) => {
             onPointerEnter={() => isPointerDown && handleStart(frequency)}
             onPointerOut={() => handleStop(frequency)}
             className={cn(
-              "absolute flex items-end justify-start rounded-lg border p-2",
+              "absolute flex items-end justify-start rounded-lg p-2",
               position % 1
                 ? "z-10 h-[112px] translate-x-1/4 bg-primary text-primary-foreground"
                 : "500 h-[176px] bg-card",
+              playingFrequencies.includes(frequency) && "bg-muted",
             )}
             style={{
               left: KEY_WIDTH * position,

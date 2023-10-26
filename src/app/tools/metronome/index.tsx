@@ -26,7 +26,7 @@ const Metronome = () => {
   const timeoutId = useRef<NodeJS.Timeout>();
   const tempo = useRef(120);
   const beats = useRef(DEFAULT_BEATS);
-  const volume = useRef(0.5);
+  const volume = useRef(1);
   const setForceRender = useState(false)[1];
 
   const oscillatorNode = useMutable(new OscillatorNode(audioContext));
@@ -51,6 +51,7 @@ const Metronome = () => {
       return;
     }
 
+    gainNode.gain.setValueAtTime(0.01, time);
     gainNode.gain.exponentialRampToValueAtTime(volume.current, time);
     gainNode.gain.exponentialRampToValueAtTime(0.001, time + 0.02);
     gainNode.gain.setValueAtTime(0, time + 0.03);
@@ -110,7 +111,7 @@ const Metronome = () => {
   };
 
   const handleVolumeChange = (newVolume: number) => {
-    const clampedVolume = clamp(newVolume, 0, 1);
+    const clampedVolume = clamp(newVolume, 0, 2);
     volume.current = clampedVolume;
     setForceRender((prev) => !prev);
   };

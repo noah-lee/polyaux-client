@@ -28,6 +28,7 @@ const Tuner = () => {
 
   const analyser = useMutable(new AnalyserNode(audioContext));
   analyser.fftSize = 4096;
+  analyser.minDecibels = -80;
 
   const updateNote = useCallback(() => {
     const dataArray = new Float32Array(analyser.fftSize);

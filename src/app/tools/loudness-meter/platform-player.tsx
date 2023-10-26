@@ -87,7 +87,9 @@ const PlatformPlayer = ({
   };
 
   const volume = useMemo(() => {
-    return fromDecibel(platform.target - integrated);
+    return platform.name === "Original"
+      ? 1
+      : fromDecibel(platform.target - integrated);
   }, [integrated, platform]);
 
   return (
@@ -102,7 +104,7 @@ const PlatformPlayer = ({
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
-              {PLATFORMS.map(({ name, target }) => (
+              {PLATFORMS.map(({ name }) => (
                 <SelectItem key={name} value={name}>
                   {name}
                 </SelectItem>
@@ -122,14 +124,17 @@ const PlatformPlayer = ({
             <p>{(platform.target || integrated).toFixed(1)}</p>
           </div>
           <div className="flex flex-col items-center gap-2">
-            <p className="font-medium">Penalty (dB)</p>
+            <p className="font-medium">
+              {volume <= 1 ? "Penalty" : "Boost"} (dB)
+            </p>
             {loading ? (
               <Loader2Icon width={24} height={24} className="animate-spin" />
             ) : (
               <p>
-                {(platform.target ? platform.target - integrated : 0).toFixed(
-                  1,
-                )}
+                {(platform.name === "Original"
+                  ? 0
+                  : platform.target - integrated
+                ).toFixed(1)}
               </p>
             )}
           </div>
