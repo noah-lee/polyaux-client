@@ -67,7 +67,7 @@ const Synthesizer = () => {
           onValueChange={(tab) => setTab(tab)}
           className="flex w-full flex-col items-center space-y-8"
         >
-          <TabsList className="sticky top-40">
+          <TabsList className="sticky top-[72px]">
             <TabsTrigger value="controls">Controls</TabsTrigger>
             <TabsTrigger value="keyboard">Keyboard</TabsTrigger>
           </TabsList>
