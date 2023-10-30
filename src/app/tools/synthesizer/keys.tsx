@@ -1,6 +1,5 @@
 import { useCallback, useState } from "react";
 import { useAdsrContext } from "@/contexts/adsr";
-import MonoOscillator from "@/audio/mono-oscillator";
 import PolyOscillator from "@/audio/poly-oscillator";
 import useKeyDown from "@/hooks/use-key-down";
 import useKeyUp from "@/hooks/use-key-up";
@@ -179,7 +178,7 @@ const Keys = ({ oscillators }: Props) => {
             onPointerEnter={() => isPointerDown && handleStart(frequency)}
             onPointerOut={() => handleStop(frequency)}
             className={cn(
-              "absolute flex items-end justify-start rounded-lg p-2",
+              "absolute flex items-end justify-start rounded-lg p-2 border",
               position % 1
                 ? "z-10 h-[112px] translate-x-1/4 bg-primary text-primary-foreground"
                 : "500 h-[176px] bg-card",

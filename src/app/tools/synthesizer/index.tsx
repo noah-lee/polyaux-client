@@ -14,7 +14,6 @@ import PolyOscillator, {
 import ReverbEffectNode, { ReverbEffectNodeOptions } from "@/audio/reverb";
 import { useAudioContext } from "@/contexts/audio";
 import useMutable from "@/hooks/use-mutable";
-import { useState } from "react";
 
 const SETTINGS: {
   oscA: PolyOscillatorSettings;
@@ -34,9 +33,6 @@ const SETTINGS: {
 
 const Synthesizer = () => {
   const audioContext = useAudioContext();
-
-  const [tab, setTab] = useState("keyboard");
-
   const polyOscA = useMutable(new PolyOscillator(audioContext, SETTINGS.oscA));
   const polyOscB = useMutable(new PolyOscillator(audioContext, SETTINGS.oscB));
   const filterNode = useMutable(new FilterNode(audioContext, SETTINGS.filter));
@@ -59,7 +55,7 @@ const Synthesizer = () => {
     <div className="container">
       <div className="flex flex-col items-center gap-8 py-[64px]">
         <h2 className="text-2xl font-semibold">Synthesizer</h2>
-        <div className="sticky top-[72px] z-40 max-w-full">
+        <div className="sticky top-[72px] z-10 max-w-full">
           <Keys oscillators={[polyOscA, polyOscB]} />
         </div>
         <div className="m-0 grid gap-8">

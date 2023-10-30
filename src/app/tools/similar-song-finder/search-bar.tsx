@@ -17,7 +17,7 @@ const SearchBar = () => {
   const [input, setInput] = useState("");
   const [searchInput, setSearchQuery] = useState("");
 
-  const { data: results, isLoading } = useSearchQuery(
+  const { data: result, isLoading } = useSearchQuery(
     {
       q: searchInput,
       type: "track",
@@ -57,24 +57,27 @@ const SearchBar = () => {
           placeholder="Search"
           value={input}
           onChange={handleInputChange}
-          className="border-border border-2"
+          className="border-2 border-border"
         />
         {searchInput && (
-          <Card className="absolute z-10 mt-2 w-full p-4 overflow-y-auto">
+          <Card className="absolute z-10 mt-2 w-full overflow-y-auto p-4">
             <ul className="flex flex-col gap-4">
-              {isLoading
-                ? Array(LIMIT)
-                    .fill(0)
-                    .map((_, index) => (
-                      <li key={index}>
-                        <SearchOptionSkeleton />
-                      </li>
-                    ))
-                : results?.tracks.items.map((track) => (
-                    <li key={track.id}>
-                      <SearchOption track={track} onClick={handleSelect} />
+              {isLoading &&
+                Array(LIMIT)
+                  .fill(0)
+                  .map((_, index) => (
+                    <li key={index}>
+                      <SearchOptionSkeleton />
                     </li>
                   ))}
+              {!isLoading &&
+                result?.tracks.items.map((track) => (
+                  <li key={track.id}>
+                    <SearchOption track={track} onClick={handleSelect} />
+                  </li>
+                ))}
+
+              {!isLoading && !result?.tracks.total && <p>No results found</p>}
             </ul>
           </Card>
         )}
